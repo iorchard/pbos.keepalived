@@ -1,0 +1,12 @@
+---
+- name: Setup | template keepalived.conf
+  ansible.builtin.template:
+    dest: "/etc/keepalived/keepalived.conf"
+    src: "etc/keepalived/keepalived.conf.j2"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: true
+  notify:
+    - systemctl restart keepalived.service
+...

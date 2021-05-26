@@ -1,0 +1,15 @@
+---
+- name: Template keepalived.conf
+  ansible.builtin.template:
+    dest: "/etc/keepalived/keepalived.conf"
+    src: "etc/keepalived/keepalived.conf.init.j2"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: true
+  when: inventory_hostname == groups['kube_controllers'][0]
+  notify:
+    - keepalived | systemctl restart keepalived.service
+
+- name: Force all notified handlers to run now
+  ansible.builtin.meta: flush_handlers
