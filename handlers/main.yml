@@ -4,10 +4,8 @@
     name: "keepalived.service"
     state: "restarted"
     enabled: true
-  loop: "{{ ansible_play_hosts }}"
-  delegate_to: "{{ item }}"
   become: true
-  run_once: true
   changed_when: false
   register: restart_keepalived_service
   failed_when: restart_keepalived_service.failed
+...

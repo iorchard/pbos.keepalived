@@ -1,13 +1,4 @@
 ---
-- name: Debian | Install prerequisite packages
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: present
-    allow_unauthenticated: false
-    update_cache: true
-  loop: "{{ prereq_pkgs }}"
-  become: true
-
 - name: Debian | Install keepalived package.
   ansible.builtin.apt:
     name: "keepalived"
@@ -15,3 +6,4 @@
     allow_unauthenticated: false
     update_cache: true
   become: true
+...

@@ -31,6 +31,13 @@ Including an example of how to use your role (for instance, with variables passe
     roles:
       - {role: pbos.keepalived, tags: keepalived}
 
+Keepalived is installed on the node in controller inventory group:
+
+    [controller]
+    host-1
+    host-2
+    host-3
+
 License
 -------
 

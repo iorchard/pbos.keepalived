@@ -1,4 +1,2 @@
 ---
-# pre-requisite packages
-prereq_pkgs:
-  - netcat-openbsd
+...
