@@ -1,9 +1,12 @@
 ---
-- name: Debian | Install keepalived package.
+- name: Debian | Install keepalived packages.
   ansible.builtin.apt:
-    name: "keepalived"
+    name: "{{ item }}"
     state: present
     allow_unauthenticated: false
     update_cache: true
   become: true
+  loop:
+    - "keepalived"
+    - "psmisc"
 ...

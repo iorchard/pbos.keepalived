@@ -1,5 +1,5 @@
 vrrp_script check_proxy {
-  script "killall -0 haproxy && killall -0 nutcracker"  # check haproxy process
+  script "/etc/keepalived/check_proxy"  # check haproxy/nutcracker process
   interval 3  # check every 3 seconds
   timeout 3  # seconds after which script is considered to have failed
   fall 2  # require 2 failures for KO

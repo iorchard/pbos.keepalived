@@ -1,11 +1,24 @@
 ---
+- name: Setup | copy check_proxy script
+  ansible.builtin.copy:
+    dest: "/{{ item.src }}"
+    src: "{{ item.src }}"
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  loop:
+    - {src: "etc/keepalived/check_proxy"}
+  become: true
+
 - name: Setup | template keepalived.conf
   ansible.builtin.template:
-    dest: "/etc/keepalived/keepalived.conf"
-    src: "etc/keepalived/keepalived.conf.j2"
+    dest: "{{ item.dest }}"
+    src: "{{ ansible_distribution | lower }}{{ item.dest + '.j2' }}"
     owner: "root"
     group: "root"
     mode: "0644"
+  loop:
+    - {dest: "/etc/keepalived/keepalived.conf"}
   become: true
   notify:
     - systemctl restart keepalived.service
