@@ -1,4 +1,5 @@
 ---
+service_name: "keepalived"
 # keepalived network interface
 keepalived_interface: "eth1"
 

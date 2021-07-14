@@ -1,2 +1,8 @@
 ---
+service_script:
+  - {dest: "/etc/keepalived/check_proxy"}
+service_conf:
+  - {dest: "/etc/keepalived/keepalived.conf"}
+systemd_service_name:
+  - keepalived.service
 ...
