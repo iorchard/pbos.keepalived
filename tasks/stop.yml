@@ -1,24 +1,9 @@
 ---
-- name: Stop | include default variables
+- name: Stop | import common tasks
   tags: keepalived
-  ansible.builtin.include_vars: "../vars/main.yml"
+  ansible.builtin.import_tasks: "common.yml"
 
-- name: Stop | include os specific variables
-  tags: keepalived
-  ansible.builtin.include_vars: "{{ lookup('first_found', _params) }}"
-  vars:
-    _params:
-      files:
-        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
-        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_release | lower }}.yml"
-        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
-        - "{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
-        - "{{ ansible_distribution | lower }}.yml"
-        - "{{ ansible_os_family | lower }}.yml"
-      paths:
-        - "../vars"
-
-- name: stop service
+- name: Stop | stop service
   tags: keepalived
   debug:
     msg: "Stop {{ service_name }} service."
