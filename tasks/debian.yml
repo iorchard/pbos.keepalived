@@ -2,11 +2,13 @@
 - name: Debian | Install keepalived packages.
   ansible.builtin.apt:
     name: "{{ item }}"
-    state: present
+    state: "{{ apt_state }}"
     allow_unauthenticated: false
     update_cache: true
+  register: _apt
+  until: not _apt.failed
+  retries: 3
+  delay: 3
   become: true
-  loop:
-    - "keepalived"
-    - "psmisc"
+  loop: "{{ packages }}"
 ...

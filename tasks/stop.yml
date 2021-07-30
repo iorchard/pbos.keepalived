@@ -1,10 +1,14 @@
 ---
 - name: Stop | import common tasks
-  tags: keepalived
+  tags:
+    - keepalived
+    - pbos-infra
   ansible.builtin.import_tasks: "common.yml"
 
 - name: Stop | stop service
-  tags: keepalived
+  tags:
+    - keepalived
+    - pbos-infra
   debug:
     msg: "Stop {{ service_name }} service."
   changed_when: true

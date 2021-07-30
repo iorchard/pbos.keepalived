@@ -1,10 +1,14 @@
 ---
 - name: Start | import common tasks
-  tags: keepalived
+  tags:
+    - keepalived
+    - pbos-infra
   ansible.builtin.import_tasks: "common.yml"
 
 - name: Start | start service
-  tags: keepalived
+  tags:
+    - keepalived
+    - pbos-infra
   debug:
     msg: "Start {{ service_name }} service."
   changed_when: true

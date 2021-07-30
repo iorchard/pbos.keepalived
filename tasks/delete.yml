@@ -1,0 +1,19 @@
+---
+- name: Delete | import common tasks
+  tags:
+    - keepalived
+    - pbos-infra
+  ansible.builtin.import_tasks: "common.yml"
+
+- name: Delete | purge packages
+  tags:
+    - keepalived
+    - pbos-infra
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    autoremove: true
+    purge: true
+    state: absent
+  loop: "{{ packages }}"
+  become: true
+...

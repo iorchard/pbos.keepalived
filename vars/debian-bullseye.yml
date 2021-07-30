@@ -1,4 +1,8 @@
 ---
+apt_state: "latest"
+packages:
+  - "keepalived"
+  - "psmisc"
 service_script:
   - {dest: "/etc/keepalived/check_proxy"}
 service_conf:
