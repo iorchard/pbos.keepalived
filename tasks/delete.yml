@@ -16,4 +16,15 @@
     state: absent
   loop: "{{ packages }}"
   become: true
+
+- name: Delete | remove directory
+  tags:
+    - keepalived
+    - pbos-infra
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/keepalived
+  become: true
 ...
