@@ -11,7 +11,6 @@
     - pbos-infra
   ansible.builtin.apt:
     name: "{{ item }}"
-    autoremove: true
     purge: true
     state: absent
   loop: "{{ packages }}"
