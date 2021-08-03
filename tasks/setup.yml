@@ -2,7 +2,7 @@
 - name: Setup | copy check_proxy script
   ansible.builtin.copy:
     dest: "{{ item.dest }}"
-    src: "{{ ansible_distribution | lower }}{{ item.dest }}"
+    src: "{{ ansible_os_family | lower }}{{ item.dest }}"
     owner: "root"
     group: "root"
     mode: "0755"
@@ -12,7 +12,7 @@
 - name: Setup | template keepalived.conf
   ansible.builtin.template:
     dest: "{{ item.dest }}"
-    src: "{{ ansible_distribution | lower }}{{ item.dest + '.j2' }}"
+    src: "{{ ansible_os_family | lower }}{{ item.dest + '.j2' }}"
     owner: "root"
     group: "root"
     mode: "0644"
