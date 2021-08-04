@@ -5,13 +5,12 @@
     - pbos-infra
   ansible.builtin.import_tasks: "common.yml"
 
-- name: Delete | purge packages
+- name: Delete | remove packages
   tags:
     - keepalived
     - pbos-infra
   ansible.builtin.apt:
     name: "{{ item }}"
-    purge: true
     state: absent
   loop: "{{ packages }}"
   become: true
