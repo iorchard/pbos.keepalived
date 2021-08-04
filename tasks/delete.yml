@@ -12,6 +12,7 @@
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
+    purge: true
   loop: "{{ packages }}"
   become: true
 
