@@ -8,8 +8,10 @@
     mode: "0755"
   loop: "{{ service_script }}"
   become: true
+  notify:
+    - systemctl restart service
 
-- name: Setup | template keepalived.conf
+- name: Setup | template keepalived.conf on the first controller
   ansible.builtin.template:
     dest: "{{ item.dest }}"
     src: "{{ ansible_os_family | lower }}{{ item.dest + '.j2' }}"
@@ -18,7 +20,25 @@
     mode: "0644"
   loop: "{{ service_conf }}"
   become: true
-  changed_when: true
+  delegate_to: "{{ groups['controller'][0] }}"
+  run_once: true
+  notify:
+    - systemctl restart service
+
+- name: Setup | get keepalived configuration from the first controller
+  ansible.builtin.slurp:
+    src: "{{ keepalived_conf }}"
+  register: keepalived_conf_str
+  delegate_to: "{{ groups['controller'][0] }}"
+  run_once: true
+ 
+- name: Setup | copy keepalived.conf to other controllers
+  ansible.builtin.copy:
+    content: "{{ keepalived_conf_str.content | b64decode }}"
+    dest: "{{ keepalived_conf }}"
+    mode: "0644"
+  become: true
+  when: inventory_hostname != groups['controller'][0]
   notify:
     - systemctl restart service
 ...

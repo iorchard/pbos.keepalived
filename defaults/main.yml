@@ -1,7 +1,11 @@
 ---
 service_name: "keepalived"
+
 # keepalived network interface
 keepalived_interface: "eth1"
+
+# keepalived virtual router id
+keepalived_vrid: "{{ 255 | random }}"
 
 # keepalived virtual_ipaddress
 keepalived_vip: "192.168.21.169"
