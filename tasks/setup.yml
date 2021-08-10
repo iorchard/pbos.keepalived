@@ -8,6 +8,7 @@
     mode: "0755"
   loop: "{{ service_script }}"
   become: true
+  changed_when: true
   notify:
     - systemctl restart service
 
@@ -22,8 +23,6 @@
   become: true
   delegate_to: "{{ groups['controller'][0] }}"
   run_once: true
-  notify:
-    - systemctl restart service
 
 - name: Setup | get keepalived configuration from the first controller
   ansible.builtin.slurp:
@@ -39,6 +38,4 @@
     mode: "0644"
   become: true
   when: inventory_hostname != groups['controller'][0]
-  notify:
-    - systemctl restart service
 ...

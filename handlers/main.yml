@@ -9,7 +9,6 @@
   retries: 3
   delay: 3
   become: true
-  changed_when: false
   loop: "{{ systemd_service_name }}"
 
 - name: systemctl stop service
@@ -22,6 +21,5 @@
   retries: 3
   delay: 3
   become: true
-  changed_when: false
   loop: "{{ systemd_service_name }}"
 ...
