@@ -6,7 +6,7 @@ vrrp_script check_proxy {
   rise 2  # require 2 succeses for OK
 }
 
-vrrp_instance VI_PBOS {
+vrrp_instance VI_PBOS_MGMT {
   state BACKUP
   interface {{ keepalived_interface }}
   virtual_router_id {{ keepalived_vrid }}
@@ -20,3 +20,19 @@ vrrp_instance VI_PBOS {
     check_proxy
   }
 }
+{% if keepalived_interface_svc != "" and keepalived_vip_svc != "" %}
+vrrp_instance VI_PBOS_SVC {
+  state BACKUP
+  interface {{ keepalived_interface_svc }}
+  virtual_router_id {{ keepalived_vrid }}
+  priority {{ (inventory_hostname == groups['controller'][0])|ternary(100, 90) }}
+  advert_int 1
+  nopreempt
+  virtual_ipaddress {
+    {{ keepalived_vip_svc }}
+  }
+   track_script {
+    check_proxy
+  }
+}
+{% endif %}
