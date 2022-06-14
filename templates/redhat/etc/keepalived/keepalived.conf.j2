@@ -16,7 +16,7 @@ vrrp_instance VI_PBOS_MGMT {
   virtual_ipaddress {
     {{ keepalived_vip }}
   }
-   track_script {
+  track_script {
     check_proxy
   }
 }
@@ -31,7 +31,7 @@ vrrp_instance VI_PBOS_SVC {
   virtual_ipaddress {
     {{ keepalived_vip_svc }}
   }
-   track_script {
+  track_script {
     check_proxy
   }
 }
