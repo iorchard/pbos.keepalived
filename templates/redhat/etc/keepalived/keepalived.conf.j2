@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: "True"
 vrrp_script check_proxy {
   script "/etc/keepalived/check_proxy"  # check haproxy/nutcracker process
   interval 3  # check every 3 seconds
@@ -19,6 +20,12 @@ vrrp_instance VI_PBOS_MGMT {
   track_script {
     check_proxy
   }
+  {% if groups['mariadb']|length == 2 %}
+  notify_master "/etc/keepalived/garb start" root
+  notify_backup "/etc/keepalived/garb stop" root
+  notify_fault "/etc/keepalived/garb stop" root
+  notify_stop "/etc/keepalived/garb stop" root
+  {% endif %}
 }
 {% if keepalived_interface_svc != "" and keepalived_vip_svc != "" %}
 vrrp_instance VI_PBOS_SVC {
