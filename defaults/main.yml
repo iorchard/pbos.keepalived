@@ -8,7 +8,4 @@ keepalived_vip: ""
 # keepalived on service
 keepalived_interface_svc: ""
 keepalived_vip_svc: ""
-
-# keepalived virtual router id
-keepalived_vrid: "{{ 255 | random }}"
 ...

@@ -10,8 +10,9 @@ vrrp_script check_proxy {
 vrrp_instance VI_PBOS_MGMT {
   state BACKUP
   interface {{ keepalived_interface }}
-  virtual_router_id {{ keepalived_vrid }}
-  priority {{ (inventory_hostname == groups['controller'][0])|ternary(100, 90) }}
+  virtual_router_id {{ hostvars[groups['controller'][0]]['keepalived_vrid'] }}
+  priority {% for h in groups['controller'] %}{% if inventory_hostname == h %}{{ 110-(loop.index*10) }}{% endif %}{% endfor %}
+
   advert_int 1
   nopreempt
   virtual_ipaddress {
@@ -32,7 +33,8 @@ vrrp_instance VI_PBOS_SVC {
   state BACKUP
   interface {{ keepalived_interface_svc }}
   virtual_router_id {{ keepalived_vrid }}
-  priority {{ (inventory_hostname == groups['controller'][0])|ternary(100, 90) }}
+  priority {% for h in groups['controller'] %}{% if inventory_hostname == h %}{{ 110-(loop.index*10) }}{% endif %}{% endfor %}
+
   advert_int 1
   nopreempt
   virtual_ipaddress {
