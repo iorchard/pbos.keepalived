@@ -5,14 +5,14 @@ packages:
   - "keepalived"
   - "psmisc"
 
-service_script:
-  - {dest: "/etc/keepalived/check_proxy"}
-  - {dest: "/etc/keepalived/garb"}
 
-keepalived_conf: "/etc/keepalived/keepalived.conf"
+keepalived_conf_dir: "/etc/keepalived"
+service_script:
+  - {dest: "{{ keepalived_conf_dir }}/check_proxy", owner: "root", group: "root", mode: "0700"}
+  - {dest: "{{ keepalived_conf_dir }}/garb", owner: "root", group: "root", mode: "0700"}
 
 service_conf:
-  - {dest: "{{ keepalived_conf }}"}
+  - {dest: "{{ keepalived_conf_dir }}/keepalived.conf", owner: "root", group: "root", mode: "0640"}
 
 systemd_service_name:
   - keepalived.service

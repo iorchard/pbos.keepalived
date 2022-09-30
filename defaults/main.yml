@@ -8,4 +8,14 @@ keepalived_vip: ""
 # keepalived on service
 keepalived_interface_svc: ""
 keepalived_vip_svc: ""
+
+# vrrp script
+# check interval in seconds
+vrrp_script_interval: 3
+# seconds after which script is considered to have failed
+vrrp_script_timeout: 3
+# requires failures for KO
+vrrp_script_fall: 2
+# requires successes for OK
+vrrp_script_rise: 1
 ...
