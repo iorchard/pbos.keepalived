@@ -1,4 +1,7 @@
 #jinja2: lstrip_blocks: "True"
+global_defs {
+  enable_script_security
+}
 vrrp_script check_proxy {
   script "/etc/keepalived/check_proxy" # check haproxy is running
   interval {{ vrrp_script_interval }}
@@ -21,6 +24,7 @@ vrrp_instance VI_PBOS_MGMT {
   track_script {
     check_proxy
   }
+  #notify /etc/keepalived/haproxy.sh
   {% if groups['mariadb']|length == 2 %}
   notify_master "/etc/keepalived/garb start" root
   notify_backup "/etc/keepalived/garb stop" root
