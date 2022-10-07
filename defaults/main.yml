@@ -8,6 +8,7 @@ keepalived_vip: ""
 # keepalived on service
 keepalived_interface_svc: ""
 keepalived_vip_svc: ""
+keepalived_svc_exists: "{{ (keepalived_interface_svc and keepalived_vip_svc) | ternary(true, false) }}"
 
 # vrrp script
 # check interval in seconds
